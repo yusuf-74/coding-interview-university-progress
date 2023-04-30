@@ -1,8 +1,23 @@
-# coding-interview-university-progress
+# Coding-Interview-University-Progress
 I will log any progress in jwasham study plan repo here and I will add some notes for each topic.
 
+# Table of Contents
 
-# 1. Big-O Notation 
+- [1. Big-O Notation](#1-big-o-notation)
+- [2. Arrays](#2-arrays)
+    - [Static Array](#static-array)
+    - [Dynamic Array](#dynamic-array)
+    - [Summary](#summary)
+      - [Dynamic Array Implementation](#dynamic-array-implementation)
+
+
+<br/>
+<br/>
+<br/>
+
+
+
+# 1. Big-O Notation
 
 **what is ***Big-O Notation*** and what is ***Omega*** and ***Theta*** ?**
 
@@ -41,3 +56,42 @@ I will log any progress in jwasham study plan repo here and I will add some note
 - **Big-O Complexity Chart**
 
   <img src="https://miro.medium.com/v2/resize:fit:1400/format:webp/1*5ZLci3SuR0zM_QlZOADv8Q.jpeg" style = "width:100%" alt = "Figure for Big-Oh Notation">
+
+<br />
+<br />
+<br />
+
+# 2. Arrays
+
+### Static Array 
+
+- **Static Array**: Contiguous area of memory consisting of equal-size elements indexed by contiguous integers.
+
+  - **Read / Write Time Complexity** 
+    - **Access**: O(1)
+    - **Add/Remove (start / middle)**: O(n)  
+    - **Add/Remove (end)**: O(1)
+
+### Dynamic Array
+
+- **Dynamic Array**: A dynamic array is an array with a big improvement: automatic resizing.
+
+- **Problem**: Static arrays are fixed in size, meaning they're not able to expand or contract once they're created. This is a problem for two reasons:
+    - 1. We might insert items and then run out of capacity.
+    - 2. We might delete items and end up with lots of empty space at the end of the array.
+ 
+> " *All problems in computer science can be solved by another level of indirection.*" 
+> - David Wheeler
+
+ - **Solution**: dynamic arrays (also known as resizable arrays) 
+ - **Idea**: store pointer to a dynamically allocated array and replace it with a newly-allocated array as needed.
+### Summary
+
+- Unlike static arrays, dynamic arrays can be resized.
+- Appending an item to a dynamic array is O(1) on average, but O(n) worst-case, because of the possibility of having to allocate a new array and copy over the old elements.
+- Some space is wasted the capacity is always at least the length of the array, but usually, it's somewhere between length and length * 2.
+  
+### Dynamic Array Implementation
+
+- GOTO [Dynamic Array Implementation](./data_structures/utils/dynamic_array.py)
+
