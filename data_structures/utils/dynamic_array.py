@@ -3,10 +3,6 @@ class DynamicArray:
         self._size = 0
         self._capacity = capacity
         self.arr = self._make_array(self.get_capacity())
-        
-    
-    def __len__(self):
-        return self.get_size()
     
     def is_empty(self):
         return self.get_size() == 0
