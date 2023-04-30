@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "coding-interview-university-progress"
+version = "0.1.0"
+description = ""
+authors = ["auto <auto>"]
+readme = "README.md"
+packages = [{include = "coding_interview_university_progress"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
