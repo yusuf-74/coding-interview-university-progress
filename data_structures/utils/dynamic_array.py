@@ -22,7 +22,7 @@ class DynamicArray:
         if self.is_empty():
             return "Array is empty"
         
-        if self.get_size() < self.get_capacity() // 2:
+        if self.get_size() < self.get_capacity() // 4:
             self._resize(self.get_capacity() // 2)
         
         val = self.arr[self.get_size() - 1]
