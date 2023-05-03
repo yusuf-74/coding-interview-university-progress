@@ -7,8 +7,8 @@ I will log any progress in jwasham study plan repo here and I will add some note
 - [2. Arrays](#2-arrays)
     - [Static Array](#static-array)
     - [Dynamic Array](#dynamic-array)
+      - [Dynamic Array Implementation](#dynamic-array-implementation) 
     - [Summary](#summary)
-      - [Dynamic Array Implementation](#dynamic-array-implementation)
 
 
 <br/>
@@ -85,13 +85,12 @@ I will log any progress in jwasham study plan repo here and I will add some note
 
  - **Solution**: dynamic arrays (also known as resizable arrays) 
  - **Idea**: store pointer to a dynamically allocated array and replace it with a newly-allocated array as needed.
+
+ - #### Dynamic Array Implementation
+
+    - GOTO [Dynamic Array Implementation](./data_structures/utils/dynamic_array.py)
 ### Summary
 
 - Unlike static arrays, dynamic arrays can be resized.
 - Appending an item to a dynamic array is O(1) on average, but O(n) worst-case, because of the possibility of having to allocate a new array and copy over the old elements.
 - Some space is wasted the capacity is always at least the length of the array, but usually, it's somewhere between length and length * 2.
-  
-### Dynamic Array Implementation
-
-- GOTO [Dynamic Array Implementation](./data_structures/utils/dynamic_array.py)
-
