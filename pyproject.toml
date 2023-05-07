@@ -8,6 +8,7 @@ packages = [{include = "coding_interview_university_progress"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+pyfiglet = "^0.8.post1"
 
 
 [build-system]
