@@ -1,6 +1,7 @@
 from pyfiglet import figlet_format
 from utils.dynamic_array import DynamicArray
-
+from utils.array_based_stack import ArrayStack
+from utils.array_based_queue import ArrayQueue
 
 def test_array():
     #  _____ _____ ____ _____   ______   ___   _    _    __  __ ___ ____       _    ____  ____      _ __   __
@@ -15,56 +16,43 @@ def test_array():
     arr = DynamicArray()
 
     # test push_back
-    print("Pushing back")
     for i in range(10):
         arr.push_back(i)
         assert arr.is_empty() == False
-        print('Size: {} Capacity: {}'.format(arr.get_size(), arr.get_capacity()))
 
     assert arr.get_size() == 10
 
     # test pop_back
-    print("Popping back")
     for i in range(10):
         arr.pop_back()
-        print('Size: {} Capacity: {}'.format(arr.get_size(), arr.get_capacity()))
         
     assert arr.get_size() == 0
     assert arr.pop_back() == "Array is empty"
 
     # test insert'
-    print("filling")
     for i in range(10):
         arr.push_back(i)
-        print('Size: {} Capacity: {}'.format(arr.get_size(), arr.get_capacity()))
 
-    print(arr.get_arr())
-    print("Inserting")
     for i in range(3):
         arr.insert(1, i)
         assert arr.get_size() == 10+i+1
         assert arr.at(1) == i
-        print(arr.get_arr())
-        print('Size: {} Capacity: {}'.format(arr.get_size(), arr.get_capacity()))
         
     # test delete
-    print("Deleting")
     for i in range(3):
         arr.delete(1)
-        print(arr.get_arr())
-        print('Size: {} Capacity: {}'.format(arr.get_size(), arr.get_capacity()))
         
     # fill array with 0, 1, 2
     for i in range(10):
         arr.push_back(i%3)
-        print('Size: {} Capacity: {}'.format(arr.get_size(), arr.get_capacity()))
         
     # test remove
     arr.remove(2)
-    print(arr.get_arr())
 
     # test find
     assert arr.find(3) == 2
+    print(figlet_format('TEST PASSED'))
+    print("\n\n=================================================================================\n\n")
 
 
 def test_stack():
@@ -74,7 +62,39 @@ def test_stack():
     #   | | | |___ ___) || |    ___) || |/ ___ \ |___| . \ 
     #   |_| |_____|____/ |_|   |____/ |_/_/   \_\____|_|\_\
     print(figlet_format('TEST STACK'))
-     
+    stack = ArrayStack()
+    assert stack.is_empty() == True
+    assert stack.pop() == "Stack is empty"
+    
+    for i in "Hello World":
+        stack.push(i)
+    
+    tmp = []
+    
+    for i in range(len(stack)):
+        tmp.append(stack.pop())
+    
+    assert "".join(tmp) == "dlroW olleH"
+    
+    for i in "{([":
+        stack.push(i)
+    
+    opposites = {"{":"}","[":"]","(":")"}
+    for i in "])}":
+        if opposites[stack.top()] == i:
+            stack.pop()
+    assert stack.is_empty() == True
+    
+    for i in "{([":
+        stack.push(i)
+    
+    for i in ")]}":
+        if stack.top() == i:
+            stack.pop()
+    assert stack.is_empty() == False
+        
+    print(figlet_format('TEST PASSED'))
+    print("\n\n=================================================================================\n\n")
 
 
 def test_queue():
@@ -85,6 +105,29 @@ def test_queue():
     #   |_| |_____|____/ |_|    \__\_\\___/|_____|\___/|_____|
     print(figlet_format('TEST QUEUE'))
     
+    queue = ArrayQueue()
+    
+    assert queue.is_empty() == True
+    assert queue.dequeue() == "Queue is empty"
+    
+    for i in "Hello World":
+        queue.enqueue(i)
+    
+    for i in "Hello World":
+        assert queue.dequeue() == i
+        
+    for i in range(100):
+        queue.enqueue(i)
+    
+    assert queue.is_empty() == False
+    
+    for i in range(100):
+        assert queue.dequeue() == i
+        
+    assert queue.is_empty() == True
+    
+    print(figlet_format('TEST PASSED'))
+    print("\n\n=================================================================================\n\n")
 
 
 def test_linked_list():

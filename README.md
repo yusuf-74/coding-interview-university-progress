@@ -9,6 +9,14 @@ I will log any progress in jwasham study plan repo here and I will add some note
     - [Dynamic Array](#dynamic-array)
       - [Dynamic Array Implementation](#dynamic-array-implementation) 
     - [Summary](#summary)
+- [3. Stacks](#3-stacks)
+    - [Main Functions Time Complexity](#main-functions-time-complexity)
+    - [Real Life Examples](#real-life-examples)
+    - [Implementation](#stack-implementation)
+- [4. Queues](#4-queues)
+    - [Main Functions Time Complexity](#main-functions-time-complexity-1)
+    - [Real Life Examples](#real-life-examples-1)
+    - [Implementation](#queue-implementation)
 
 
 <br/>
@@ -86,7 +94,7 @@ I will log any progress in jwasham study plan repo here and I will add some note
  - **Solution**: dynamic arrays (also known as resizable arrays) 
  - **Idea**: store pointer to a dynamically allocated array and replace it with a newly-allocated array as needed.
 
- - #### Dynamic Array Implementation
+ - #### **Dynamic Array Implementation**
 
     - GOTO [Dynamic Array Implementation](./data_structures/utils/dynamic_array.py)
 ### Summary
@@ -94,3 +102,76 @@ I will log any progress in jwasham study plan repo here and I will add some note
 - Unlike static arrays, dynamic arrays can be resized.
 - Appending an item to a dynamic array is O(1) on average, but O(n) worst-case, because of the possibility of having to allocate a new array and copy over the old elements.
 - Some space is wasted the capacity is always at least the length of the array, but usually, it's somewhere between length and length * 2.
+
+</br>
+</br>
+</br>
+
+# 3. Stacks
+
+- A **Stack** is a collection of objects that are inserted and removed according to thelast-in, ﬁrst-out (LIFO) principle.
+- #### **Main Functions Time Complexity**
+  - **push**: O(1)
+  - **pop**: O(1) 
+  - **top**: O(1) 
+
+- #### **Real Life Examples**
+  - Internet Web browsers store the addresses of recently visited sites 
+    in a **Stack**. Each time a user visits a new site, that site’s address is “pushed” onto the
+    **Stack** of addresses. The browser then allows the user to “pop” back to previously
+    visited sites using the “back” button.
+  
+  - Text editors usually provide an “undo” mechanism that cancels recent 
+    editing operations and reverts to former states of a document. This undo operation can be accomplished by keeping
+    text changes in a **Stack**.
+
+- #### **Stack Implementation**
+  I used **Dynamic Array** to implement **Array Based Stack**.
+
+    - The **adapter design pattern** applies to any context where we effectively want to
+    modify an existing class so that its methods match those of a related, but different,
+    class or interface. 
+    One general way to apply the adapter pattern is to deﬁne a new
+    class in such a way that it contains an instance of the existing class as a hidden
+    ﬁeld, and then to implement each method of the new class using methods of this
+    hidden instance variable.
+
+  GOTO [Stack Implementation](./data_structures/utils/array_based_stack.py)
+</br>
+</br>
+</br>
+
+# 4. Queues
+
+- A **Queue** is another fundamental data structure. It is a close “cousin” of the stack,
+as a queue is a collection of objects that are inserted and removed according to the
+ﬁrst-in, ﬁrst-out (FIFO) principle.
+
+- #### **Main Functions Time Complexity**
+  - **enqueue**: O(1)
+  - **dequeue**: O(1) 
+  - **front**: O(1)
+  
+- #### **Real Life Examples**
+  - Supermarket checkout lines: People line up in a **queue** to pay for their groceries. The first person to enter 
+    the **queue** is  the first to be served by the cashier, and subsequent customers are served in the order 
+    they joined the **queue**.
+
+  - Customer service call centers: When a customer calls a support line, their call is put in a **queue** until 
+    a representative is available to take their call. The representative will then take 
+    the calls in the order they were received.
+
+  - Printers: When multiple documents are sent to a printer, they are placed in a **queue** and processed one at a time.
+    The first document to be sent to the printer is the first one to be printed, and the subsequent documents are 
+    printed in the order they were received.
+
+- #### **Queue Implementation**
+  I used **Python List** to implement **Array Based Queue**.
+  
+  - GOTO [Queue Implementation](./data_structures/utils/array_based_queue.py)
+
+
+
+
+
+

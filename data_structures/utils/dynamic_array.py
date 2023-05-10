@@ -26,7 +26,7 @@ class DynamicArray:
             self._resize(self.get_capacity() // 2)
         
         val = self.arr[self.get_size() - 1]
-        # del self.arr[self.get_size() - 1]
+        self.arr[self.get_size() - 1] = None # Help garbage collector
         self._set_size(self.get_size() - 1)
         return val
     
@@ -69,9 +69,7 @@ class DynamicArray:
         for i in range(index, self.get_size()):
             self.arr[i] = self.arr[i + 1]
 
-    def _resize(self, new_capacity):
-        print("Resizing from {} to {}".format(self.get_capacity(), new_capacity))
-        
+    def _resize(self, new_capacity):        
         new_arr = self._make_array(new_capacity)
         for i in range(self.get_size()):
             new_arr[i] = self.arr[i]
@@ -99,3 +97,5 @@ class DynamicArray:
     def get_arr(self):
         return self.arr
     
+    def __len__(self):
+        return self.get_size()
