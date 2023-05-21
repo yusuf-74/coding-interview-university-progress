@@ -17,6 +17,18 @@ I will log any progress in jwasham study plan repo here and I will add some note
     - [Main Functions Time Complexity](#main-functions-time-complexity-1)
     - [Real Life Examples](#real-life-examples-1)
     - [Implementation](#queue-implementation)
+- [5. Linked Lists](#5-linked-lists)
+    - [Quick Summary](#quick-summary)
+    - [Arrays vs. Linked Lists](#arrays-vs-linked-lists)
+    - [Types of Linked Lists](#types-of-linked-lists)
+      - [Singly Linked Lists](#singly-linked-lists)
+        - [Singly Linked Lists Implementation](#singly-linked-lists-implementation)
+      - [Circular Linked Lists](#circular-linked-lists)
+        - [Circular Linked Lists Implementation](#circular-linked-lists-implementation)
+      - [Doubly Linked Lists](#doubly-linked-lists)
+        - [Doubly Linked Lists Implementation](#doubly-linked-lists-implementation)
+      - [Positional Lists](#positional-lists)
+        - [Positional Lists Implementation](#positional-lists-implementation)
 
 
 <br/>
@@ -136,7 +148,9 @@ I will log any progress in jwasham study plan repo here and I will add some note
     ﬁeld, and then to implement each method of the new class using methods of this
     hidden instance variable.
 
-  GOTO [Stack Implementation](./data_structures/utils/array_based_stack.py)
+  - GOTO [Array Stack Implementation](./data_structures/utils/array_based_stack.py)
+  - GOTO [Linked Stack Implementation](./data_structures/utils/linked_list.py#L6)
+
 </br>
 </br>
 </br>
@@ -171,7 +185,151 @@ as a queue is a collection of objects that are inserted and removed according to
   - GOTO [Queue Implementation](./data_structures/utils/array_based_queue.py)
 
 
+<br />
+<br />
+<br />
 
+# 5. Linked Lists
+
+## Quick Summary
+
+- ### What is a Linked List?
+  >Linked lists are a fundamental data structure in computer science that are used to 
+  >store and manipulate collections of data. They were invented as a way to address some of the limitations of arrays, which are another commonly used data structure.
+
+  Another way to think of a linked list :
+
+  >A linked list, in contrast, relies on a more distributed
+  >representation in  which a lightweight object, known as a node, is allocated for each 
+  >element. Each node maintains a reference to its element and one or more references to
+  >neighboring nodes in order to collectively represent the linear order of the sequence
+
+  - Node implementation:
+    ```python
+    class _Node:
+        __slots__ = '_element', '_next'
+        
+        def __init__(self,element = None, next = None) -> None:
+            """Node of a singly linked list."""
+            self._element = element
+            self._next = next
+    ```
+    **Important Note:** \__slots\__ is a special attribute that is used by the Python interpreter to allocate memory for the fixed set of attributes that we have declared for each instance of the class. This can save a significant amount of memory for large collections of objects.
+
+</br>
+
+- ### What is the **MAJOR** Problem with Arrays? 
+  One of the main drawbacks of arrays is that they have a fixed size, which means that they cannot easily be resized or modified once they are created. This can be problematic when dealing with collections of data that need to be modified frequently, or when the size of the collection is not known in advance.
+
+- ### How Linked Lists Solve this Problem?
+  Linked lists were invented as a way to overcome this limitation by providing a dynamic data structure that can be easily resized and modified. Linked lists also have the advantage of allowing for efficient insertion and deletion of elements anywhere in the list, whereas arrays require shifting all subsequent elements when an element is inserted or deleted in the middle of the array.
+
+## Arrays vs. Linked Lists
+
+### Arrays:
+
+**Advantages**:
+
+- **Constant-time access** to individual elements using an index.
+- **Cache-friendly** for iterating through all elements in sequence. **VERY IMPORTANT**
+- **Can be resized dynamically** in some programming languages, such as Python.
+
+
+**Disadvantages**:
+
+- The length of a dynamic array might be longer than the actual number of
+  elements that it stores.
+- Amortized bounds for operations may be unacceptable in real-time systems.
+  
+- Inserting or deleting elements in the middle of an array can be **slow & expensive**,
+  as it requires shifting all subsequent elements.
+- Fixed size in some programming languages, such as C, which requires allocating a new
+  array and copying all elements to resize.
+- Wasted space if the array is only partially filled, which can be an issue with large 
+  arrays or in memory-constrained environments.
+
+
+### Linked lists:
+
+**Advantages**:
+
+- **Efficient insertion and deletion** of elements anywhere in the list.
+- **No wasted space**, as each element only requires as much memory as it needs.
+- Can be used to **implement more complex data structures**, such as stacks and queues.
+
+
+**Disadvantages**:
+
+- **No constant-time access** to individual elements; accessing an element requires traversing the list from the beginning.
+- Can have **poor cache performance** if elements are not stored sequentially in memory.
+- **Not supported natively in some programming** languages, requiring manual implementation.
+
+
+In summary, arrays are good for situations where random access to individual elements is important and iteration is straightforward, while linked lists are better for situations where efficient insertion and deletion of elements is important, and memory efficiency is a concern.
+
+## Types of Linked Lists
+
+### Singly Linked Lists
+
+- **Singly Linked Lists**: in its simplest form, is a collection of nodes that 
+  collectively form a linear sequence. Each node stores a reference to an object that 
+  is an element of the sequence, as well as a reference to the next node of the list
+
+  - **Singly Linked Lists**
+
+    <img src="https://www.geeksforgeeks.org/wp-content/uploads/gq/2013/03/Linkedlist_insert_at_start.png" style = "width:100%" alt = "Figure for Singly Linked Lists">
+
+- #### Singly Linked Lists Implementation
+
+  - GOTO [Singly Linked Lists Implementation](./data_structures/utils/linked_list.py#L23)
+
+### Circular Linked Lists
+- **Circular Linked Lists**: A circular linked list is a variation of a linked list in which the last element is linked to the first element. This forms a circular loop.
+- it's quite useful in certain situations. For example, it can be used for round-robin scheduling, where the scheduler goes around a list of processes giving each of them a slice of time before going around the list again.
+
+  - **Circular Linked Lists**
+
+    <img src="https://media.geeksforgeeks.org/wp-content/uploads/CircularSinglyLinkedList.png" style = "width:100%" alt = "Figure for Circular Linked Lists">
+- #### Circular Linked Lists Implementation
+  - GOTO [Circular Linked Lists Implementation](./data_structures/utils/linked_list.py#L159)
+### Doubly Linked Lists
+
+- **Doubly Linked Lists**: A doubly linked list is a data structure that contains a sequence of nodes such that each node contains an object and references to the previous and next nodes in the list.
+- >In order to avoid some special cases when operating near the boundaries of a doubly
+  >linked list, it helps to add special nodes at both ends of the list: a header node at
+  >the beginning of the list, and a trailer node at the end of the list. These “dummy”
+  >nodes are known as sentinels (or guards), and they do not store elements of the
+  >primary sequence.
+  > - Data Structurs and Algorithms in Python, Goodrich, Tamassia & Goldwasser
+
+  - **Doubly Linked List**
+
+    <img src="https://www.geeksforgeeks.org/wp-content/uploads/gq/2014/03/DLL1.png" style = "width:100%" alt = "Figure for Doubly Linked Lists">
+
+- #### Doubly Linked Lists Implementation
+  - GOTO [Doubly Linked Lists Implementation](./data_structures/utils/linked_list.py#L246) 
+
+
+### Positional Lists
+
+- **Positional Lists**: A positional list is an abstract data type that is similar to a list, except that the user can access and insert new elements at any position within the list, as opposed to just the back of the list. This allows for constant-time insertion and removal of elements at an arbitrary position within the list.
+
+- **Why ?**
+  >We wish to have a more general abstraction. For example,
+  >although we motivated the FIFO semantics of a queue as a model for customers
+  >who are waiting to speak with a customer service representative, or fans who are
+  >waiting in line to buy tickets to a show, the queue ADT is too limiting. What if
+  >a waiting customer decides to hang up before reaching the front of the customer
+  >service queue? Or what if someone who is waiting in line to buy tickets allows a
+  >friend to “cut” into line at that position? We would like to design an abstract data
+  >type that provides a user a way to refer to elements anywhere in a sequence, and to
+  >perform arbitrary insertions and deletions.
+  > - Data Structurs and Algorithms in Python, Goodrich, Tamassia & Goldwasser
+
+</br>
+
+- #### Positional Lists Implementation
+  - GOTO [Positional Lists Implementation](./data_structures/utils/linked_list.py#L399)
 
 
 
