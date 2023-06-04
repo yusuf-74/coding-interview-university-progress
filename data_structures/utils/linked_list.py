@@ -13,11 +13,10 @@ class Node:
 
 
 class DoublyNode(Node):
-    slots = '_element' , '_prev' , '_next' 
+    __slots__ = '_prev'
     def __init__ (self, element, prev, next):
-        self._element = element
+        super().__init__(element, next)
         self._prev = prev
-        self._next = next
 
 
 class SinglyLinkedList:
@@ -154,6 +153,13 @@ class SinglyLinkedList:
         for _ in range(position):
             ptr = ptr._next
         return ptr._element
+    
+    def __iter__(self):
+        """Generate a forward iteration of the elements of the linked list."""
+        ptr = self._head
+        while ptr:
+            yield ptr._element
+            ptr = ptr._next
 
 
 class CircularLinkedList(SinglyLinkedList):

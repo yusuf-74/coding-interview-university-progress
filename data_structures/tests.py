@@ -1,4 +1,7 @@
 from pyfiglet import figlet_format
+import random
+import string
+import json
 from utils.linked_list import ( LinkedQueue,
                                 LinkedStack,
                                 CircularQueue,
@@ -9,7 +12,7 @@ from utils.linked_list import ( LinkedQueue,
 from utils.dynamic_array import DynamicArray
 from utils.array_based_stack import ArrayStack
 from utils.array_based_queue import ArrayQueue
-
+from utils.hash_table import ChainingHashTable, LinearProbingHashTable , QuadraticProbingHashTable, DoubleHashingHashTable
     
 def test_array():
     #  _____ _____ ____ _____   ______   ___   _    _    __  __ ___ ____       _    ____  ____      _ __   __
@@ -256,6 +259,76 @@ def test_hash_table():
     
     print(figlet_format('TEST HASH TABLE'))
     
+    def get_random_str():
+        return ''.join(random.choice(string.ascii_lowercase) for i in range(3))
+    
+    my_chaining_hash_table = ChainingHashTable()
+    my_linear_hash_table = LinearProbingHashTable()
+    my_quadratic_hash_table = QuadraticProbingHashTable()
+    my_double_hash_table = DoubleHashingHashTable()
+    
+    
+    for i in range(100):
+        my_chaining_hash_table[i] = i
+        my_linear_hash_table[i] = i
+        my_quadratic_hash_table[i] = i
+        my_double_hash_table[i] = i
+        
+    
+    for i in my_chaining_hash_table:
+        assert my_chaining_hash_table[i] == i
+        assert my_linear_hash_table[i] == i
+        assert my_quadratic_hash_table[i] == i
+        assert my_double_hash_table[i] == i
+    
+    assert len(my_chaining_hash_table) == 100
+    assert len(my_linear_hash_table) == 100
+    assert len(my_quadratic_hash_table) == 100
+    assert len(my_double_hash_table) == 100
+    
+    for i in range(100):
+        del my_chaining_hash_table[i]
+        del my_linear_hash_table[i]
+        del my_quadratic_hash_table[i]
+        del my_double_hash_table[i]
+        
+    
+    assert my_chaining_hash_table.is_empty() == True
+    assert my_linear_hash_table.is_empty() == True
+    assert my_quadratic_hash_table.is_empty() == True
+    assert my_double_hash_table.is_empty() == True
+        
+    for i in range(100):
+        random_str = get_random_str()
+        my_chaining_hash_table[random_str] = i
+        my_linear_hash_table[random_str] = i
+        my_quadratic_hash_table[random_str] = i
+        my_double_hash_table[random_str] = i
+    
+        
+    # my_table = []
+    
+
+        
+    # cnt = 0
+    # mx = 0
+    # for i in my_chaining_hash_table._table:
+    #     if i is not None:
+    #         cnt += 1
+            
+    #         bucket = [(item._key , item._value) for item in i]
+    #         mx = max(mx, len(bucket))
+    #         my_table.append({bucket[0][0]:bucket})
+    
+    # linear = [(item._key , item._value) for item in my_linear_hash_table._table if item != 'DELETED' and item != None]
+    # quad = [(item._key , item._value) for item in my_quadratic_hash_table._table if item != 'DELETED' and item != None]
+    # double = [(item._key , item._value) for item in my_double_hash_table._table if item != 'DELETED' and item != None]
+    # json.dump(my_table, open("chaining_hash_table.json", "w" ), indent=4)
+    # json.dump(linear, open("linear_hash_table.json", "w" ), indent=4)
+    # json.dump(quad, open("quadratic_hash_table.json", "w" ), indent=4)
+    # json.dump(double, open("double_hash_table.json", "w" ), indent=4)
+    
+    print(figlet_format('TEST PASSED'))
 
 
 

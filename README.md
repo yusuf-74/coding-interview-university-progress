@@ -29,6 +29,27 @@ I will log any progress in jwasham study plan repo here and I will add some note
         - [Doubly Linked Lists Implementation](#doubly-linked-lists-implementation)
       - [Positional Lists](#positional-lists)
         - [Positional Lists Implementation](#positional-lists-implementation)
+- [6. Hash tables (python's Dictionary)](#6-hash-tables-pythons-dictionary)
+  - [Collision](#collision)
+  - [How to solve collision?](#how-to-solve-collision)
+    - [chaining vs open addressing](#chaining-vs-open-addressing)
+      - [Hashing with chaining](#hashing-with-chaining)
+        - [Chaining implementation](#chaining-implementation)
+      - [Hasing with open addressing](#hasing-with-open-addressing)
+        - [probing strategies](#probing-strategies)
+          - [Linear probing](#linear-probing)
+            - [mathematical proof of clustering](#mathematical-proof-of-clustering)
+            - [Linear Probing implementation](#linear-probing-implementation)
+          - [Quadratic probing](#quadratic-probing)
+            - [Quadratic Implementation](#quadratic-implementation)
+          - [Double hashing](#double-hashing)
+            - [Double Hashing Implementation](#double-hashing-implementation)
+    - [Key sharing in python dictionary](#key-sharing-in-python-dictionary)
+  - [Hashing functions in theory](#hashing-functions-in-theory)
+    - [Division method](#division-method)
+    - [Multiplication method](#multiplication-method)
+    - [Universal hashing](#universal-hashing)
+  - [Key sharing in python dictionary](#key-sharing-in-python-dictionary-1)
 
 
 <br/>
@@ -332,4 +353,228 @@ In summary, arrays are good for situations where random access to individual ele
   - GOTO [Positional Lists Implementation](./data_structures/utils/linked_list.py#L399)
 
 
+</br>
+</br>
 
+
+# 6. Hash tables (python's Dictionary)
+
+**what is ***Hash tables*** ?**
+
+- **Hash tables**: or **Maps** or **Dictionaries** are data structures that store key-value pairs
+  - **Read / Write Time Complexity** 
+    - **Lookup**: O(1) 
+    - **Add/Remove (end)**: O(1)
+
+- #### **Real Life Examples**
+  - A university’s information system relies on some form of a student ID as a
+    key that is mapped to that student’s associated record (such as the student’s
+    name, address, and course grades) serving as the value.
+
+  - The domain-name system (DNS) maps a host name, such as www.wiley.com,
+    to an Internet-Protocol (IP) address, such as 208.215.179.146.
+  - A social media site typically relies on a (nonnumeric) username as a key that
+    can be efﬁciently mapped to a particular user’s associated information.
+  - A computer graphics system may map a color name, such as turquoise ,
+    to the triple of numbers that describes the color’s RGB (red-green-blue) rep-
+    resentation, such as (64,224,208).
+  - Python uses a dictionary to represent each namespace, mapping an identifying
+    string, such as pi , to an associated object, such as 3.14159
+
+
+
+> prehash really should not change </br>
+> if you ever implemented **\_\_hash\_\_** for a class don't mess with it </br>
+> make sure it's defined in such a way that it doesn't change over time</br>
+> otherwise you'll have a bad time finding your objects in a dictionary</br>
+> the **\_\_hash\_\_** function return the object ID by default</br>
+> **For example**: List is not hashable because it's mutable and it does change over time</br>
+> - MIT OPEN COURSEWARE
+
+</br>
+
+## Collision
+
+**what is ***Collision*** ?**
+>If there are two or more keys with the same hash value, then two different items
+>will be mapped to the same bucket in A. In this case, we say that a collision has
+>occurred. To be sure, there are ways of dealing with collisions, which we will
+>discuss later, **but the best strategy is to try to avoid them in the ﬁrst place.**
+> - Data Structures and Algorithms in Python (Michael T. Goodrich, Roberto Tamassia, Michael H. Goldwasser)
+
+</br>
+
+## How to solve collision?
+
+
+  - ## chaining vs open addressing
+
+    - ### Hashing with chaining
+
+        Hashing with chaining is a method of collision resolution
+        In this method we use a linked list to store the collided keys
+        </br>
+        </br>
+        <img src="https://www.eecs.umich.edu/courses/eecs380/ALG/niemann/s_fig31.gif" style ="width:100%" />
+        </br>
+        if we assume that n is the number of keys and m is the size of the table the average number of keys in each 
+        linked list is n/m so the average time complexity of searching is O(1 + (n/m)) keep in mind that if the n is much
+        smaller than m the average time complexity is O(1) but we will have a lot of empty space in the table
+        and if the n is much bigger than m the average time complexity is O(n)
+        </br>
+        > so we want m to be big enough to avoid collision and small enough to avoid empty space
+        > - MIT OPEN COURSEWARE
+            
+        #### so How to choose m?
+
+        first approach is to choose m to be some small constant let's say 8 and we extend the table and shrink it when needed
+        BUT thhis approach is comming with the previous concept of dynamic array **Amortization**</br>
+
+        #### **Chaining implementation**:
+          - GOTO [Chaining implementation](./data_structures/utils/hash_table.py#L69)
+
+
+    - ### Hasing with open addressing
+
+        in this method we use the next empty slot in the table to store the collided key</br>
+
+    - #### **probing strategies**
+
+        </br>
+
+        1. ***Linear probing***
+
+            in this method we use the next empty slot in the table to store the collided key according to the following formula
+            </br>
+            <code>
+            h(key,i) = (h'(key) + i) mod m
+            </code>
+            where h'(key) is an ordinary hashing function</br>
+            and i is the number of collisions</br>
+            and m is the size of the table</br>
+            and h(key,i) is the probing function</br>
+            </br>
+            - disadvantage of this method is **clustering**</br>
+
+            > the problem with the clusters is that it will grow rapidly
+            > for example if we have a table of size 100 and we have a cluster of 4 items in the table and we want to insert a new item
+            > the probability of collision is 4/100 = 4% which is 4 time bigger than the probability of collision in the first place
+            > and we can essentially argue through making probabilistic assumptions that that if in fact we use linear probing we will
+            > lose our avg. constant time lookup
+            > - MIT OPEN COURSEWARE
+            
+            </br>
+
+            - #### **mathematical proof of clustering**
+
+
+                consider the following </br>
+                h'(key) is a perfect hashing function</br>
+                alpha is the load factor "alpha = n/m"</br>
+                <code>
+                if : 0.01 <= alpha <= 0.99 </br>
+                we will see clustering O(log(n)) size in our table </br>
+                that means we will have O(log(n)) time complexity for lookup </br>
+                </code>
+                </br>
+            
+            - #### **Linear Probing implementation** 
+              - GOTO [Linear Probing implementation](./data_structures/utils/hash_table.py#L146)
+
+        1. ***Quadratic probing***
+          
+              in this method we use the next empty slot in the table to store the collided key according to the following formula</br>
+              <code>
+              h(key,i) = (i^2 + h'(key)) mod m
+              </code>
+              where h'(key) is an ordinary hashing function</br>
+              and i is the number of collisions</br>
+              and m is the size of the table</br>
+              and h(key,i) is the probing function</br>
+              </br>
+              - disadvantage of this method is **primary clustering.**</br>
+              </br> 
+              
+              - #### ***Quadratic Implementation***
+                - GOTO [Quadratic Implementation](./data_structures/utils/hash_table.py#L211)  
+
+
+        2. ***Double hashing***
+
+            in this method we use the next empty slot in the table to store the collided key according to the following formula</br>
+            <code>
+            h(key,i) = (h'(key) + i*h''(key)) mod m
+            </code>
+            where h'(key) is an ordinary hashing function</br>
+            and h''(key) is another hashing function</br>
+            and i is the number of collisions</br>
+            and m is the size of the table</br>
+
+            - #### ***Double Hashing Implementation***
+              - GOTO [Double Hashing Implementation](./data_structures/utils/hash_table.py#L257)
+
+
+            </br>
+
+
+        **Note:** that when we delete an item from the table we don't actually delete it</br>
+        we just mark it as deleted so it doesn't affect the lookup</br>
+
+    </br>
+    </br>
+
+## Hashing functions in theory
+1. Division method
+   
+    in this method we divide the key by the size of the table and take the remainder</br>
+    ```python
+    def hash(key, size):
+        return key % size
+    ```
+</br>
+
+2. Multiplication method
+
+   key = a*k mod 2^w >> (w-r)</br>
+   in this method we multiply the key by a constant a and take the most significant bits</br>
+   where a is a random number between 0 and 2^w</br>
+   and r is the number of bits we want to take</br>
+   and w is the number of bits in word in the machine</br>
+   ```python
+    def hash(key, size):
+        a = random.randint(0, 2**w)
+         return ((a*key) % 2**w) >> (w-r)
+    ```
+</br>
+
+3. Universal hashing
+
+    key = (a*k + b) mod p mod m</br>
+    in this method we multiply the key by a constant a and add another constant b and take the remainder</br>
+    where a and b are random numbers between 0 and p</br>
+    p is a huge prime number (bigger than the size of key universe)</br>
+    m is the size of the table</br>
+    ```python
+    def hash(key, size):
+        p = "HUGE PRIME NUMBER"
+        a = random.randint(0, p)
+        b = random.randint(0, p)
+        return ((a*key) + b) % p % size
+    ```
+
+    </br>
+
+    this method is better than the previous methods because it's more random</br>
+    and if the a,b randomization is done correctly it will be very hard to find a collision</br>
+    the Pr of collision is 1/m</br>
+
+
+### Key sharing in python dictionary
+
+for two dictionaries that are the same size and have the same keys
+the keys will be stored in the same order in the two dictionaries
+so instead of storing the keys for each dictionary we store them once
+this is called key sharing</br>
+
+it's super efficient because we don't have to store the keys for each dictionary and you can
+notice the difference in memory usage when you have a lot of dictionaries with the same keys like in **"OOP"**
