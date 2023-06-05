@@ -44,12 +44,11 @@ I will log any progress in jwasham study plan repo here and I will add some note
             - [Quadratic Implementation](#quadratic-implementation)
           - [Double hashing](#double-hashing)
             - [Double Hashing Implementation](#double-hashing-implementation)
-    - [Key sharing in python dictionary](#key-sharing-in-python-dictionary)
   - [Hashing functions in theory](#hashing-functions-in-theory)
     - [Division method](#division-method)
     - [Multiplication method](#multiplication-method)
     - [Universal hashing](#universal-hashing)
-  - [Key sharing in python dictionary](#key-sharing-in-python-dictionary-1)
+  - [Key sharing in python dictionary](#key-sharing-in-python-dictionary)
 
 
 <br/>
