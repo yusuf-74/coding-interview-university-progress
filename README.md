@@ -430,7 +430,7 @@ In summary, arrays are good for situations where random access to individual ele
         BUT thhis approach is comming with the previous concept of dynamic array **Amortization**</br>
 
         #### **Chaining implementation**:
-          - GOTO [Chaining implementation](./data_structures/utils/hash_table.py#L69)
+        - GOTO [Chaining implementation](./data_structures/utils/hash_table.py#L69)
 
 
     - ### Hasing with open addressing
